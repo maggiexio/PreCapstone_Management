@@ -24,7 +24,7 @@ with col11:
   st.markdown("Data file includes net sales and number of orders/gusts, break down to every hour and  every weekday from Jan 2022 to Marchh 2022 at Spokane. ")
    
 with col12:
-  title_11="Hello! I am Alexa. Can I help you?"
+  title_11="Hello! I am Henry. Can I help you?"
   st.markdown(f'<h2 style="text-align: center;color: purple;">{title_11}</h2>',unsafe_allow_html=True)
   user_input =''
   user_input = st.text_area("Type your questions here (enter 'contrl+enter' to finish your questions)", value="", max_chars=5000)
