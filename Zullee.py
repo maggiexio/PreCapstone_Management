@@ -37,7 +37,7 @@ with col12:
       if user_input.lower()!='': 
         st.write ("Sorry, I am not sure! Please contact xix294@g.harvard.edu")
          
-# read in data
+# read in data: hourly break down
 df_ori=raw_data("./data/Sales_Summary_123_2022_Spokane-Python.xlsx", "Hourly_Breakdown")
 df_ori['NetSale_group']=""
 df_ori['OrderN_group']=""
