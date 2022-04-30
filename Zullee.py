@@ -3,7 +3,7 @@ import pandas as pd
 import plotly 
 import plotly.express as px
      
-@st.cache
+#@st.cache
 def raw_data(input_file, sheetname):
   df=pd.read_excel(open(input_file, 'rb'), sheet_name=sheetname )
   return df
