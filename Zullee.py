@@ -38,7 +38,7 @@ with col12:
         st.write ("Sorry, I am not sure! Please contact xix294@g.harvard.edu")
          
 # read in data
-df_ori=raw_data("./data/Sales Summary 123 2022 - Spokane - Python.xlsx", "Hourly Breakdown")
+df_ori=raw_data("./data/Sales_Summary_123_2022_Spokane-Python.xlsx", "Hourly Breakdown")
 df_ori['NetSale_group']=""
 df_ori['OrderN_group']=""
 df_ori['GuestN_group']=""
