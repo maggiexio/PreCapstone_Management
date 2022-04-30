@@ -90,6 +90,14 @@ with col11:
   st.markdown(f'<h3 style="text-aligh: center;color: green;">{title_ch1}</h3>',unsafe_allow_html=True)
   title_ch2='****2D interactive plots********'
   st.markdown(f'<h4 style="text-aligh: center;color: green;">{title_ch2}</h4>',unsafe_allow_html=True)
+     
+  with st.expander("Animation:    display the net sales across all hours and the relationship with Month"):  
+    fig_ani1=px.bar(df_1, x='Hour', animation_frame='Month', color='Hour')
+    fig_ani1.update_layout(transition = {'duration': 30000})
+    st.plotly_chart(fig_ani1,  use_container_width=True, height=600)
+    fig_ani2=px.scatter(df_1, y='Net_Sales', x='Hour', animation_frame='Month', color='Hour', size='Net_Sales', size_max=60)
+    fig_ani2.update_layout(transition = {'duration': 30000})
+    st.plotly_chart(fig_ani2,  use_container_width=True, height=600)   
 
   title_ch3='****3D interactive plots********'
   st.markdown(f'<h4 style="text-aligh: center;color: green;">{title_ch3}</h4>',unsafe_allow_html=True)
