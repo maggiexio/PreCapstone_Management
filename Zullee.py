@@ -2,150 +2,26 @@ import streamlit as st
 import pandas as pd
 import plotly 
 import plotly.express as px
-import csv
-import base64
-import difflib
- 
      
-#@st.cache
-def raw_data(input_file):
-#  df=pd.read_csv(input_file, encoding = "ISO-8859-1")
-  df=pd.read_csv(input_file)
+@st.cache
+def raw_data(input_file, sheetname):
+  df=pd.read_excel(open(input_file, 'rb'), sheet_name=sheetname )
   return df
 
 #######################glabal variables
-us_state_to_abbrev = {
-    "Alabama": "AL",
-    "Alaska": "AK",
-    "Arizona": "AZ",
-    "Arkansas": "AR",
-    "California": "CA",
-    "Colorado": "CO",
-    "Connecticut": "CT",
-    "Delaware": "DE",
-    "Florida": "FL",
-    "Georgia": "GA",
-    "Hawaii": "HI",
-    "Idaho": "ID",
-    "Illinois": "IL",
-    "Indiana": "IN",
-    "Iowa": "IA",
-    "Kansas": "KS",
-    "Kentucky": "KY",
-    "Louisiana": "LA",
-    "Maine": "ME",
-    "Maryland": "MD",
-    "Massachusetts": "MA",
-    "Michigan": "MI",
-    "Minnesota": "MN",
-    "Mississippi": "MS",
-    "Missouri": "MO",
-    "Montana": "MT",
-    "Nebraska": "NE",
-    "Nevada": "NV",
-    "New Hampshire": "NH",
-    "New Jersey": "NJ",
-    "New Mexico": "NM",
-    "New York": "NY",
-    "North Carolina": "NC",
-    "North Dakota": "ND",
-    "Ohio": "OH",
-    "Oklahoma": "OK",
-    "Oregon": "OR",
-    "Pennsylvania": "PA",
-    "Rhode Island": "RI",
-    "South Carolina": "SC",
-    "South Dakota": "SD",
-    "Tennessee": "TN",
-    "Texas": "TX",
-    "Utah": "UT",
-    "Vermont": "VT",
-    "Virginia": "VA",
-    "Washington": "WA",
-    "West Virginia": "WV",
-    "Wisconsin": "WI",
-    "Wyoming": "WY",
-    "District of Columbia": "DC",
-    "American Samoa": "AS",
-    "Guam": "GU",
-    "Northern Mariana Islands": "MP",
-    "Puerto Rico": "PR",
-    "United States Minor Outlying Islands": "UM",
-    "U.S. Virgin Islands": "VI",
-   }
-country_abbrev={
-    "Canada": "CA",
-    "United States of America": "USA",
-    "United States": "USA",   
-    "Singapore": "SGP",
-    "Philippines":"PHL",
-    "Germany": "DEU",
-    "Slovakia": "SVK",
-    "Aruba": "ARB",
-    "India": "IMD",
-  }
-  
-key_s=  list(us_state_to_abbrev.keys())
-value_s=  list(us_state_to_abbrev.values())
-state_list = list(set(key_s) | set(value_s))
-
-df_Country=raw_data("./data/list_of_country.csv")
-country_dic=dict(zip(df_Country.Country, df_Country.Code3))
-key_c=  list(country_dic.keys())
-value_c=  list(country_dic.values())
-country_list = list(set(key_c) | set(value_c))
-
 
 #define functions
-
-def Turn_DICT_Uppercase(dic):
-  return {k.upper():v.upper() for k,v in dic.items()}
-
-def is_similar(first, second, ratio):
-    return difflib.SequenceMatcher(None, first, second).ratio() > ratio
-
-def table_download(df):
-    """Generates a link allowing the data in a given panda dataframe to be downloaded
-    in:  dataframe
-    out: href string
-    """
-    csv = df.to_csv(index=False)
-    b64 = base64.b64encode(csv.encode('utf-8')).decode('utf-8') 
-    href = f'<a href="data:file/csv;base64,{b64}" download="myfile.csv">Download csv file</a>'
-    return href
-
-def Find_State_Country(state_name): 
-  state_abbrev=Turn_DICT_Uppercase(us_state_to_abbrev)
-  country_abbrev=Turn_DICT_Uppercase(country_dic)
-  state=''
-  country=''
-  for t in state_name.split(','):
-      if t.upper() in state_abbrev.keys():
-          state=state_abbrev[t.upper()]
-      if  t.upper() in state_abbrev.values():
-          state=t.upper()
-      if t.upper() in country_abbrev.keys():
-          country=country_abbrev[t.upper()]
-      if  t.upper() in country_abbrev.values():
-          country=t.upper()  
-  if state in value_s:
-    country='USA'
-  return state, country
-    
-   
-
-
 
 ##############################
 st.set_page_config(layout="wide", initial_sidebar_state="auto")
 col11, col12 = st.columns((3,1))
 with col11:
-  title_1="Data Excursion"
+  title_1="Zullee Data Exploration"
   st.markdown(f'<h1 style="text-align: center;color: green;">{title_1}</h1>',unsafe_allow_html=True)
-  subj_1="-- XXX Project"
+  subj_1="-- Pre-CapStone project"
   st.markdown(f'<h2 style="text-align: center;color: green;">{subj_1}</h2>',unsafe_allow_html=True) 
-  st.markdown ("By: Maggie Xiong")
-  st.markdown("Data file include 1169 studnets reponse time and raw score to each of the 20 items in the exampnation. Response time of the first item is missing. Total reponse time and score, together with geographical information and age are also provided. ")
+  st.markdown ("Team 6: profit model")
+  st.markdown("Data file includes net sales and number of orders/gusts, break down to every hour and  every weekday from Jan 2022 to Marchh 2022 at Spokane. ")
    
 with col12:
   title_11="Hello! I am Alexa. Can I help you?"
@@ -156,13 +32,13 @@ with col12:
     st.write ("Great! Have a nice day!")
   else:
     if user_input.lower().find('item level plots') != -1:
-      st.write ("Item level plot will be added into a different page! At this point, only test level plots are provided.")
+      st.write ("At this point, only Spokane data are provided.")
     else: 
       if user_input.lower()!='': 
-        st.write ("Sorry, I am not sure! Please contact xxiong@ets.org")
+        st.write ("Sorry, I am not sure! Please contact xix294@g.harvard.edu")
          
 # read in data
-df_ori=raw_data("./data/data_2021_2022.csv")
+df_ori=raw_data("./data/Sales Summary 123 2022 - Spokane - Python.xlsx")
 df_ori['rt_gs_1']=""
 df_ori['state_corr']=""
 df_ori['state_abbr']=""
