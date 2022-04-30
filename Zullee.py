@@ -93,7 +93,7 @@ with col11:
      
   with st.expander("Animation:    display the net sales across all hours and the relationship with Month"):  
     fig_ani2=px.scatter(df_1, y='Net_Sales', x='Hour', animation_frame='Month', color='Hour', size='Net_Sales', size_max=60)
-    fig_ani2.update_layout(transition = {'duration': 90000})
+    fig_ani2.update_layout(transition = {'duration': 100000})
     st.plotly_chart(fig_ani2,  use_container_width=True, height=600)   
 
   title_ch3='****3D interactive plots for hourly breakdown********'
@@ -118,7 +118,7 @@ with col11:
      
   with st.expander("Animation:    display the net sales across all Weekdays and the relationship with Month"):  
     fig_ani22=px.scatter(df2_ori, y='Net_Sales', x='Weekday', animation_frame='Month', color='Weekday', size='Net_Sales', size_max=60)
-    fig_ani22.update_layout(transition = {'duration': 90000})
+    fig_ani22.update_layout(transition = {'duration': 100000})
     st.plotly_chart(fig_ani22,  use_container_width=True, height=600)   
 
   title_ch3='****3D interactive plots for weekday breakdown********'
