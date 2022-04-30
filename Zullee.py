@@ -76,7 +76,7 @@ df_1=df_1.query("Order_Count>=@orderN_1 and Order_Count<=@orderN_2")
 orderN_choice = st.sidebar.selectbox('Select the range of order counts:', ['All', '<100','(100,200)','(200-300)', '(300-400)','(>400)'])
 if orderN_choice != "All":
   df_1=df_1.query("OrderN_group==@orderN_choice")
-month_choice = st.sidebar.radio('Whether take the test at home:', ['All', 'Jan.', 'Feb.', 'Mar.'])
+month_choice = st.sidebar.radio('Pick up month(s) you are interested:', ['All', 'Jan.', 'Feb.', 'Mar.'])
 if month_choice != "All":
   df_1=df_1.query("Month==@month_choice")
 
