@@ -59,7 +59,7 @@ with col11:
       if ('All' in hour_choice):
         df_ori_1=df_ori
       else:
-        df_ori_1=df_ori.query("hour in @hour_choice")
+        df_ori_1=df_ori.query("Hour in @hour_choice")
       st.dataframe(df_ori_1)
          
 # Filters
