@@ -69,7 +69,7 @@ netSales_1, netSales_2 = st.sidebar.slider("Net Sales: ", min(df_ori.Net_Sales),
 df_1=df_1.query("Net_Sales>=@netSales_1 and Net_Sales<=@netSales_2")
 hour_1, hour_2 = st.sidebar.slider("which hour data to be shown",  min(df_ori.Hour), max(df_ori.Hour), (min(df_ori.Hour), max(df_ori.Hour)))    
 df_1=df_1.query("Hour>=@hour_1 and Hour<=@hour_2")
-orderN_1, orderN_2 = st.sidebar.slider("Order Counts",  min(df_ori.Order_Counts), max(df_ori.Order_Counts), (min(df_ori.Order_Counts), max(df_ori.Order_Counts)))    
+orderN_1, orderN_2 = st.sidebar.slider("Order_Counts",  min(df_ori.Order_Counts), max(df_ori.Order_Counts), (min(df_ori.Order_Counts), max(df_ori.Order_Counts)))    
 df_1=df_1.query("Order_Counts>=@orderN_1 and Order_Counts<=@orderN_2")
 #sex=df_1['gender'].drop_duplicates()
 #mode=df_1['home_computer'].drop_duplicates()
