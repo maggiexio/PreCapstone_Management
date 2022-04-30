@@ -44,7 +44,7 @@ df_ori['OrderN_group']=""
 df_ori['GuestN_group']=""
 bin_OrderN= [0,100,200,300,400]
 label_OrderN = ['<100','(100,200)','(200-300)', '(300-400)','(>400)']
-df_ori['OrderN_group'] = pd.cut(df_ori['Order Count'], bins=bin_OrderN, labels=label_OrderN, right=False)
+df_ori['OrderN_group'] = pd.cut(df_ori['Order_Count'], bins=bin_OrderN, labels=label_OrderN, right=False)
 #df_ori['OrderN_group'] = df_ori['OrderN_group'].cat.add_categories('unknown').fillna('unknown')  
  
 with col11:  
