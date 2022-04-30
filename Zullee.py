@@ -114,7 +114,7 @@ label2_OrderN = ['<100','(100,200)','(200-300)', '(300-400)','(>400)']
 
 with col11:   
   with st.expander("Animation:    display the net sales across all Weekdays and the relationship with Month"):  
-    fig_ani2=px.scatter(df2_ori, y='Net_Sales', x='Weekday', animation_frame='Month', color='Hour', size='Net_Sales', size_max=60)
+    fig_ani2=px.scatter(df2_ori, y='Net_Sales', x='Weekday', animation_frame='Month', color='Weekday', size='Net_Sales', size_max=60)
     fig_ani2.update_layout(transition = {'duration': 30000})
     st.plotly_chart(fig_ani22,  use_container_width=True, height=600)   
 
