@@ -46,9 +46,17 @@ bin_OrderN= [0,100,200,300,400, 500]
 label_OrderN = ['<100','(100,200)','(200-300)', '(300-400)','(>400)']
 df_ori['OrderN_group'] = pd.cut(df_ori['Order_Count'], bins=bin_OrderN, labels=label_OrderN, right=False)
 #df_ori['OrderN_group'] = df_ori['OrderN_group'].cat.add_categories('unknown').fillna('unknown')  
+
+# read in data: Weekday break down
+df2_ori=raw_data("./data/Sales_Summary_123_2022_Spokane-Python.xlsx", "Weekday_Breakdown")
+df2_ori['NetSale_group2']=""
+df2_ori['OrderN_group2']=""
+df2_ori['GuestN_group2']=""
+bin2_OrderN= [0,100,200,300,400, 500]
+label2_OrderN = ['<100','(100,200)','(200-300)', '(300-400)','(>400)']
  
 with col11:  
-  with st.expander("Data view"): 
+  with st.expander("Data view - hourly breakdown"): 
       st.write("""
         Please select which **hour** data you want to view. 
         """)
@@ -61,7 +69,20 @@ with col11:
       else:
         df_ori_1=df_ori.query("Hour in @hour_choice")
       st.dataframe(df_ori_1)
-         
+  with st.expander("Data view - weekday breakdown"): 
+      st.write("""
+        Please select which **weekday** data you want to view. 
+        """)
+      allWeekday=df2_ori['Weekday'].drop_duplicates()
+      default_weekday=['All']
+      default_hour.extend(allWeekday)
+      weekday_choice=st.multiselect("", default_weekday)
+      if ('All' in weekday_choice):
+        df_ori_2=df2_ori
+      else:
+        df_ori_2=df2_ori.query("Weekday in @weekday_choice")
+      st.dataframe(df_ori_2)
+          
 # Filters
 df_1=df_ori
 st.sidebar.markdown("## Define **filters:**")
@@ -104,15 +125,9 @@ with col11:
 
      
      
-# read in data: Weekday break down
-df2_ori=raw_data("./data/Sales_Summary_123_2022_Spokane-Python.xlsx", "Weekday_Breakdown")
-df2_ori['NetSale_group2']=""
-df2_ori['OrderN_group2']=""
-df2_ori['GuestN_group2']=""
-bin2_OrderN= [0,100,200,300,400, 500]
-label2_OrderN = ['<100','(100,200)','(200-300)', '(300-400)','(>400)']
 
-# Filters
+
+# Filters for weekday breakdown
 df_2=df2_ori
 df_2=df_2.query("Net_Sales>=@netSales_1 and Net_Sales<=@netSales_2")
 df_2=df_2.query("Order_Count>=@orderN_1 and Order_Count<=@orderN_2")
@@ -122,7 +137,7 @@ weekday_choice = st.sidebar.radio('Pick up weekday(s) you are interested:', ['Al
 if weekday_choice != "All":
   df_2=df_2.query("Weekday==@weekday_choice")
 
-
+#plots for weekday breakdown
 with col11:  
   title_ch2='****2D interactive plots for weekday breakdown********'
   st.markdown(f'<h4 style="text-aligh: center;color: green;">{title_ch2}</h4>',unsafe_allow_html=True)
