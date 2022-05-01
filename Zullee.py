@@ -112,17 +112,29 @@ df2_ori['GuestN_group2']=""
 bin2_OrderN= [0,100,200,300,400, 500]
 label2_OrderN = ['<100','(100,200)','(200-300)', '(300-400)','(>400)']
 
+# Filters
+df_2=df2_ori
+df_2=df_2.query("Net_Sales>=@netSales_1 and Net_Sales<=@netSales_2")
+df_2=df_2.query("Order_Count>=@orderN_1 and Order_Count<=@orderN_2")
+orderN_choice = st.sidebar.selectbox('Select the range of order counts:', ['All', '<100','(100,200)','(200-300)', '(300-400)','(>400)'])
+if orderN_choice != "All":
+  df_2=df_2.query("OrderN_group==@orderN_choice")
+weekday_choice = st.sidebar.radio('Pick up weekday(s) you are interested:', ['All', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
+if weekday_choice != "All":
+  df_2=df_2.query("Weekday==@weekday_choice")
+
+
 with col11:  
   title_ch2='****2D interactive plots for weekday breakdown********'
   st.markdown(f'<h4 style="text-aligh: center;color: green;">{title_ch2}</h4>',unsafe_allow_html=True)
      
   with st.expander("Animation:    display the net sales across all Weekdays and the relationship with Month"):  
-    fig_ani22=px.scatter(df2_ori, y='Net_Sales', x='Weekday', animation_frame='Month', color='Weekday', size='Net_Sales', size_max=60)
+    fig_ani22=px.scatter(df_2, y='Net_Sales', x='Weekday', animation_frame='Month', color='Weekday', size='Net_Sales', size_max=60)
     fig_ani22.update_layout(transition = {'duration': 100000})
     st.plotly_chart(fig_ani22,  use_container_width=True, height=600)   
 
   title_ch3='****3D interactive plots for weekday breakdown********'
   st.markdown(f'<h4 style="text-aligh: center;color: green;">{title_ch3}</h4>',unsafe_allow_html=True)
   with st.expander("Check the relationship between Month, hour and net sales in an interactive 3D way"): 
-    fig_scatter11=px.scatter_3d(df2_ori, y='Weekday', x='Month', z='Guest_Count', color='Weekday', size='Guest_Count', size_max=50)
+    fig_scatter11=px.scatter_3d(df_2, y='Weekday', x='Month', z='Guest_Count', color='Weekday', size='Guest_Count', size_max=50)
     st.plotly_chart(fig_scatter11,  use_container_width=True, height=3000)
