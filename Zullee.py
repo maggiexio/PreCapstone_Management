@@ -116,7 +116,6 @@ label2_OrderN = ['<100','(100,200)','(200-300)', '(300-400)','(>400)']
 df_2=df2_ori
 df_2=df_2.query("Net_Sales>=@netSales_1 and Net_Sales<=@netSales_2")
 df_2=df_2.query("Order_Count>=@orderN_1 and Order_Count<=@orderN_2")
-orderN_choice = st.sidebar.selectbox('Select the range of order counts:', ['All', '<100','(100,200)','(200-300)', '(300-400)','(>400)'])
 if orderN_choice != "All":
   df_2=df_2.query("OrderN_group==@orderN_choice")
 weekday_choice = st.sidebar.radio('Pick up weekday(s) you are interested:', ['All', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
