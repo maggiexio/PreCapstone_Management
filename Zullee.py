@@ -65,11 +65,11 @@ with col11:
 # Filters
 df_1=df_ori
 st.sidebar.markdown("## Define **filters:**")
-netSales_1, netSales_2 = st.sidebar.slider("Net Sales: ", min(df_ori.Net_Sales), max(df_ori.Net_Sales), (min(df_ori.Net_Sales), max(df_ori.Net_Sales)))
+netSales_1, netSales_2 = st.sidebar.slider("Net Sales: ", min(df_ori.Net_Sales), 24000, (min(df_ori.Net_Sales), 24000))
 df_1=df_1.query("Net_Sales>=@netSales_1 and Net_Sales<=@netSales_2")
 hour_1, hour_2 = st.sidebar.slider("which hour data to be shown",  min(df_ori.Hour), max(df_ori.Hour), (min(df_ori.Hour), max(df_ori.Hour)))    
 df_1=df_1.query("Hour>=@hour_1 and Hour<=@hour_2")
-orderN_1, orderN_2 = st.sidebar.slider("Order_Count",  min(df_ori.Order_Count), max(df_ori.Order_Count), (min(df_ori.Order_Count), max(df_ori.Order_Count)))    
+orderN_1, orderN_2 = st.sidebar.slider("Order_Count",  min(df_ori.Order_Count), 700, (min(df_ori.Order_Count), 700))    
 df_1=df_1.query("Order_Count>=@orderN_1 and Order_Count<=@orderN_2")
 #sex=df_1['gender'].drop_duplicates()
 #mode=df_1['home_computer'].drop_duplicates()
